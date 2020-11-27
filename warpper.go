@@ -102,6 +102,9 @@ func RenderTo(callback string) string {
 }
 
 func (r *OpenidRes) validateSteamSign() error {
+	if len(r.Error) > 0 {
+		return errors.New(r.Error)
+	}
 	u, _ := url.Parse(loginUrl)
 	const mode = "openid.mode"
 	query := u.Query()
