@@ -16,7 +16,10 @@ steam openid 2.0 golang 实现
     openidRes.Bind(*http.Request)//原生 包含validateSteamSing
     gin.Context.ShouldBind(openidRes) //gin框架
     //。。。其他绑定方式
-    openidRes.ValidateSteamSign() == nil //验证是steam的请求 用于其他参数绑定方式
+
+    //验证是steam的请求 用于其他参数绑定方式
+    //多次验证会返回失败
+    openidRes.ValidateSteamSign() == nil 
 
     openidRes.GetSteamId() //获取steamid
 
