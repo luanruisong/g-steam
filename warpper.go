@@ -85,7 +85,7 @@ func (r *OpenidRes) Bind(req *http.Request) error {
 	query := req.URL.Query()
 	r.raw = query
 	r.scan()
-	if err := r.validateSteamSign(); err != nil {
+	if err := r.ValidateSteamSign(); err != nil {
 		return err
 	}
 	return nil
@@ -101,7 +101,7 @@ func RenderTo(callback string) string {
 	return NewRender(callback).GetFullUrl()
 }
 
-func (r *OpenidRes) validateSteamSign() error {
+func (r *OpenidRes) ValidateSteamSign() error {
 	if len(r.Error) > 0 {
 		return errors.New(r.Error)
 	}
