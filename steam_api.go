@@ -11,7 +11,7 @@ import (
 const apiUrl = `http://api.steampowered.com/%s/%s/%s/`
 
 type api struct {
-	param map[string]string
+	param url.Values
 	req   Req
 	appKey,
 	server,
@@ -23,7 +23,7 @@ func openApi(appKey string, req Req) *api {
 	return &api{
 		req:    req,
 		appKey: appKey,
-		param:  make(map[string]string),
+		param:  url.Values{},
 	}
 }
 
@@ -43,7 +43,14 @@ func (s *api) Version(version string) *api {
 }
 
 func (s *api) AddParam(k, v string) *api {
-	s.param[k] = v
+	s.param.Add(k, v)
+	return s
+}
+
+func (s *api) AddParams(m map[string]string) *api {
+	for i, v := range m {
+		s.param.Add(i, v)
+	}
 	return s
 }
 
@@ -71,14 +78,10 @@ func (s *api) do(d doFunc, resPtr interface{}) (raw string, err error) {
 	if u, err = s.buildUrl(); err != nil {
 		return
 	}
-	query := u.Query()
-	for i, v := range s.param {
-		query.Add(i, v)
-	}
 	if _, ok := s.param["key"]; !ok {
-		query.Add("key", s.appKey)
+		s.param.Add("key", s.appKey)
 	}
-	u.RawQuery = query.Encode()
+	u.RawQuery = s.param.Encode()
 
 	raw, err = d(u.String(), nil, nil)
 	if err == nil && len(raw) > 0 && resPtr != nil {
