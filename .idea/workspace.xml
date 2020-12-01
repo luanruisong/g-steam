@@ -21,13 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a943b8c8-b954-42b1-841e-4af1c4fb7d72" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openid.go" beforeDir="false" afterPath="$PROJECT_DIR$/openid.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/req.go" beforeDir="false" afterPath="$PROJECT_DIR$/req.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/steam_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/steam_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

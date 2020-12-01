@@ -16,8 +16,7 @@ type api struct {
 	appKey,
 	server,
 	method,
-	version,
-	query string
+	version string
 }
 
 func openApi(appKey string, req Req) *api {
