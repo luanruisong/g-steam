@@ -8,7 +8,8 @@ import (
 )
 
 type (
-	Req interface {
+	doFunc func(urlStr string, param, header map[string]string) (string, error)
+	Req    interface {
 		Get(urlStr string, param, header map[string]string) (string, error)
 		Post(urlStr string, param, header map[string]string) (string, error)
 	}
@@ -31,6 +32,8 @@ func (d *defReq) do(method, urlStr string, param, header map[string]string) (res
 			body.Add(i, v)
 		}
 		reader = strings.NewReader(body.Encode())
+	} else {
+		reader = strings.NewReader("")
 	}
 	if req, err = http.NewRequest(method, urlStr, reader); err != nil {
 		return

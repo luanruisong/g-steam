@@ -112,8 +112,10 @@ func (r *openidRes) validateSteamSign(req Req) error {
 	}
 	m := map[string]string{}
 	for _, v := range strings.Split(res, "\n") {
-		if x := strings.Split(v, ":"); len(v) == 2 {
-			m[x[0]] = x[1]
+		if x := strings.Index(v, ":"); x > 0 {
+			key := strings.TrimSpace(v[:x])
+			value := strings.TrimSpace(v[x+1:])
+			m[key] = value
 		}
 	}
 	if t, ok := m["is_valid"]; !ok || t != "true" {

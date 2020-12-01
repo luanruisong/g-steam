@@ -20,10 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a943b8c8-b954-42b1-841e-4af1c4fb7d72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/req.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/openid.go" beforeDir="false" afterPath="$PROJECT_DIR$/openid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/req.go" beforeDir="false" afterPath="$PROJECT_DIR$/req.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steam_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_api.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/steam_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +68,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.TestGetPlayerSummaries in github.com/luanruisong/g-steam">
     <configuration name="TestGetOpenId in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
       <working_directory value="$PROJECT_DIR$" />
@@ -77,8 +80,20 @@
       <pattern value="^\QTestGetOpenId\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestGetPlayerSummaries in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="g-steam" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/luanruisong/g-steam" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetPlayerSummaries\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestGetPlayerSummaries in github.com/luanruisong/g-steam" />
         <item itemvalue="Go Test.TestGetOpenId in github.com/luanruisong/g-steam" />
       </list>
     </recent_temporary>
@@ -107,22 +122,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606718611716" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1606718612830">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="426" key="GridCell.Tab.0.bottom" timestamp="1606824924895">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
+    <state width="1878" height="426" key="GridCell.Tab.0.bottom/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606824924895" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1606718612830">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="426" key="GridCell.Tab.0.center" timestamp="1606824924892">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
+    <state width="1878" height="426" key="GridCell.Tab.0.center/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606824924892" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1606718612830">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="426" key="GridCell.Tab.0.left" timestamp="1606824924888">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
+    <state width="1878" height="426" key="GridCell.Tab.0.left/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606824924888" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1606718612830">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="426" key="GridCell.Tab.0.right" timestamp="1606824924893">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
+    <state width="1878" height="426" key="GridCell.Tab.0.right/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606824924893" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
+    <state x="-1253" y="170" width="586" height="490" key="find.popup" timestamp="1606824179621">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
+    </state>
+    <state x="-1253" y="170" width="586" height="490" key="find.popup/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606824179621" />
+    <state x="-1295" y="116" width="670" height="676" key="search.everywhere.popup" timestamp="1606823001082">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
+    </state>
+    <state x="-1295" y="116" width="670" height="676" key="search.everywhere.popup/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606823001082" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/g_steam$Test_Division_1_in_g_test_go.out" NAME="Test_Division_1 in g_test.go Coverage Results" MODIFIED="1606448826780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

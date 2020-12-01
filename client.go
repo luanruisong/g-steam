@@ -31,3 +31,7 @@ func (c *client) OpenidBindQuery(param url.Values) (res *openidRes, err error) {
 func (c *client) OpenidBindMap(param map[string]string) (res *openidRes, err error) {
 	return openidBindMap(param, c.req)
 }
+
+func (c *client) Api() *api {
+	return openApi(c.appKey, c.req)
+}
