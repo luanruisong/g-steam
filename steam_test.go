@@ -7,12 +7,14 @@ import (
 )
 
 func TestGetOpenId(t *testing.T) {
-	render := NewRender("http://127.0.0.1:9099/")
+	client := NewClient("key123")
+
+	render := client.RenderTo("http://127.0.0.1:9099/")
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		res := &OpenidRes{}
-		_ = res.Bind(request)
-		fmt.Println(res.GetSteamId())
+
+		res, err := client.OpenidBindQuery(request.URL.Query())
+		fmt.Println(res.GetSteamId(), err)
 	})
-	fmt.Println(render.GetFullUrl())
+	fmt.Println(render)
 	_ = http.ListenAndServe(":9099", nil)
 }

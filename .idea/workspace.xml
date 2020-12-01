@@ -20,9 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a943b8c8-b954-42b1-841e-4af1c4fb7d72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/steam_api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/steam_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/warpper.go" beforeDir="false" afterPath="$PROJECT_DIR$/openid.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/req.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openid.go" beforeDir="false" afterPath="$PROJECT_DIR$/openid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steam_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,5 +123,8 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/g_steam$Test_Division_1_in_g_test_go.out" NAME="Test_Division_1 in g_test.go Coverage Results" MODIFIED="1606448826780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
