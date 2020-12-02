@@ -7,7 +7,11 @@ import (
 )
 
 func newTestClient() *client {
-	return NewClient("appkey")
+	return NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
+}
+
+func steamId() string {
+	return "76561198421538055"
 }
 
 func TestGetOpenId(t *testing.T) {
@@ -24,7 +28,6 @@ func TestGetOpenId(t *testing.T) {
 	fmt.Println(render)
 	_ = http.ListenAndServe(":9099", nil)
 }
-
 func TestGetPlayerSummaries(t *testing.T) {
 	//http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXX&steamids=76561197960435530
 	client := newTestClient()
@@ -32,7 +35,81 @@ func TestGetPlayerSummaries(t *testing.T) {
 	raw, err := api.Server("ISteamUser").
 		Method("GetPlayerSummaries").
 		Version("v0002").
-		AddParam("steamids", "123").
+		AddParam("steamids", steamId()).
 		Get(nil)
-	fmt.Println(raw, err)
+	if err == nil {
+		t.Log(raw)
+	} else {
+		t.Error(err.Error())
+	}
+}
+
+func TestGetFriendList(t *testing.T) {
+	//http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=XXX&steamid=76561197960435530&relationship=friend
+	client := newTestClient()
+	api := client.Api()
+	raw, err := api.Server("ISteamUser").
+		Method("GetFriendList").
+		Version("v0001").
+		AddParam("steamid", steamId()).
+		AddParam("relationship", "friend").
+		Get(nil)
+	if err == nil {
+		t.Log(raw)
+	} else {
+		t.Error(err.Error())
+	}
+}
+
+func TestGetOwnedGames(t *testing.T) {
+	//https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=XXXXXX&steamid=76561197960434622&format=json
+	client := newTestClient()
+	api := client.Api()
+	raw, err := api.Server("IPlayerService").
+		Method("GetOwnedGames").
+		Version("v1").
+		AddParam("steamid", steamId()).
+		Get(nil)
+	if err == nil {
+		t.Log(raw)
+	} else {
+		t.Error(err.Error())
+	}
+}
+
+func TestGetRecentlyPlayedGames(t *testing.T) {
+	client := newTestClient()
+	api := client.Api()
+	raw, err := api.Server("IPlayerService").
+		Method("GetRecentlyPlayedGames").
+		Version("v0001").
+		AddParam("steamid", steamId()).
+		Get(nil)
+	if err == nil {
+		t.Log(raw)
+	} else {
+		t.Error(err.Error())
+	}
+}
+
+func TestProfile(t *testing.T) {
+	//编辑地址
+	//{player.profileurl}/edit/settings
+}
+
+func TestGetAppList(t *testing.T) {
+	client := newTestClient()
+	api := client.Api()
+	raw, err := api.Server("ISteamUserStats").
+		Method("GetSchemaForGame").
+		Version("v2").
+		AddParam("appid", "477160").
+		AddParam("l", "zh").
+		Get(nil)
+	if err == nil {
+		t.Log(raw)
+	} else {
+		t.Error(err.Error())
+	}
+
 }
