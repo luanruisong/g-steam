@@ -96,20 +96,3 @@ func TestProfile(t *testing.T) {
 	//编辑地址
 	//{player.profileurl}/edit/settings
 }
-
-func TestGetAppList(t *testing.T) {
-	client := newTestClient()
-	api := client.Api()
-	raw, err := api.Server("ISteamUserStats").
-		Method("GetSchemaForGame").
-		Version("v2").
-		AddParam("appid", "477160").
-		AddParam("l", "zh").
-		Get(nil)
-	if err == nil {
-		t.Log(raw)
-	} else {
-		t.Error(err.Error())
-	}
-
-}

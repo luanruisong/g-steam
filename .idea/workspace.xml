@@ -20,7 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a943b8c8-b954-42b1-841e-4af1c4fb7d72" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/isteam_app/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/isteam_app/app_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/isteam_economy/economy.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/isteam_economy/economy_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openid.go" beforeDir="false" afterPath="$PROJECT_DIR$/openid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/req.go" beforeDir="false" afterPath="$PROJECT_DIR$/req.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steam_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_api.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/steam_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/steam_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,43 +68,51 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
-  <component name="RunManager" selected="Go Test.TestGetAppList in github.com/luanruisong/g-steam">
-    <configuration name="TestGetAppList in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="GoExtractInterfaceDialog.RECENT_KEY">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/isteam_app" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.TestGetAssetPrices in github.com/luanruisong/g-steam/isteam_economy">
+    <configuration name="TestGetAppList in github.com/luanruisong/g-steam/isteam_app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/isteam_app" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/luanruisong/g-steam" />
+      <package value="github.com/luanruisong/g-steam/isteam_app" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <pattern value="^\QTestGetAppList\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGetFriendList in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetAssetClassInfo in github.com/luanruisong/g-steam/isteam_economy" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/isteam_economy" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/luanruisong/g-steam" />
+      <package value="github.com/luanruisong/g-steam/isteam_economy" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestGetFriendList\E$" />
+      <pattern value="^\QTestGetAssetClassInfo\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGetOwnedGames in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetAssetPrices in github.com/luanruisong/g-steam/isteam_economy" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/isteam_economy" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/luanruisong/g-steam" />
+      <package value="github.com/luanruisong/g-steam/isteam_economy" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestGetOwnedGames\E$" />
+      <pattern value="^\QTestGetAssetPrices\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGetPlayerSummaries in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetServersAtAddress in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -104,10 +120,10 @@
       <package value="github.com/luanruisong/g-steam" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestGetPlayerSummaries\E$" />
+      <pattern value="^\QTestGetServersAtAddress\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGetRecentlyPlayedGames in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUpToDateCheck in github.com/luanruisong/g-steam" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="g-steam" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -115,16 +131,16 @@
       <package value="github.com/luanruisong/g-steam" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestGetRecentlyPlayedGames\E$" />
+      <pattern value="^\QTestUpToDateCheck\E$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestGetAppList in github.com/luanruisong/g-steam" />
-        <item itemvalue="Go Test.TestGetPlayerSummaries in github.com/luanruisong/g-steam" />
-        <item itemvalue="Go Test.TestGetRecentlyPlayedGames in github.com/luanruisong/g-steam" />
-        <item itemvalue="Go Test.TestGetOwnedGames in github.com/luanruisong/g-steam" />
-        <item itemvalue="Go Test.TestGetFriendList in github.com/luanruisong/g-steam" />
+        <item itemvalue="Go Test.TestGetAssetPrices in github.com/luanruisong/g-steam/isteam_economy" />
+        <item itemvalue="Go Test.TestGetAssetClassInfo in github.com/luanruisong/g-steam/isteam_economy" />
+        <item itemvalue="Go Test.TestGetAppList in github.com/luanruisong/g-steam/isteam_app" />
+        <item itemvalue="Go Test.TestUpToDateCheck in github.com/luanruisong/g-steam" />
+        <item itemvalue="Go Test.TestGetServersAtAddress in github.com/luanruisong/g-steam" />
       </list>
     </recent_temporary>
   </component>
@@ -148,30 +164,42 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1223" y="239" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1607064235896">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
+    </state>
+    <state x="-1223" y="239" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607064235896" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1606718611716">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606718611716" />
-    <state width="1878" height="426" key="GridCell.Tab.0.bottom" timestamp="1606900415010">
+    <state width="1878" height="510" key="GridCell.Tab.0.bottom" timestamp="1607071270954">
       <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
-    <state width="1878" height="426" key="GridCell.Tab.0.bottom/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606900415009" />
+    <state width="1878" height="510" key="GridCell.Tab.0.bottom/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607071270954" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1878" height="426" key="GridCell.Tab.0.center" timestamp="1606900415004">
+    <state width="1878" height="510" key="GridCell.Tab.0.center" timestamp="1607071270950">
       <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
-    <state width="1878" height="426" key="GridCell.Tab.0.center/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606900415004" />
+    <state width="1878" height="510" key="GridCell.Tab.0.center/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607071270950" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1878" height="426" key="GridCell.Tab.0.left" timestamp="1606900415002">
+    <state width="1878" height="510" key="GridCell.Tab.0.left" timestamp="1607071270948">
       <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
-    <state width="1878" height="426" key="GridCell.Tab.0.left/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606900415002" />
+    <state width="1878" height="510" key="GridCell.Tab.0.left/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607071270948" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
-    <state width="1878" height="426" key="GridCell.Tab.0.right" timestamp="1606900415008">
+    <state width="1878" height="510" key="GridCell.Tab.0.right" timestamp="1607071270952">
       <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>
-    <state width="1878" height="426" key="GridCell.Tab.0.right/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1606900415008" />
+    <state width="1878" height="510" key="GridCell.Tab.0.right/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607071270952" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606718612830" />
+    <state x="-1486" y="50" key="SettingsEditor" timestamp="1607064304549">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
+    </state>
+    <state x="-1486" y="50" key="SettingsEditor/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607064304549" />
+    <state x="-1175" y="141" key="com.goide.refactor.extractInterface.GoExtractInterfaceDialog" timestamp="1607064880474">
+      <screen x="-1920" y="-125" width="1920" height="1080" />
+    </state>
+    <state x="-1175" y="141" key="com.goide.refactor.extractInterface.GoExtractInterfaceDialog/0.0.1440.900/-1920.-125.1920.1080@-1920.-125.1920.1080" timestamp="1607064880474" />
     <state x="-1253" y="170" width="586" height="490" key="find.popup" timestamp="1606824179621">
       <screen x="-1920" y="-125" width="1920" height="1080" />
     </state>

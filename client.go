@@ -1,8 +1,14 @@
 package steam
 
-import "net/url"
+import (
+	"net/url"
+)
 
 type (
+	Client interface {
+		Api() Api
+	}
+
 	client struct {
 		appKey string
 		req    Req
@@ -32,6 +38,6 @@ func (c *client) OpenidBindMap(param map[string]string) (res *openidRes, err err
 	return openidBindMap(param, c.req)
 }
 
-func (c *client) Api() *api {
+func (c *client) Api() Api {
 	return openApi(c.appKey, c.req)
 }

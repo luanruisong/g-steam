@@ -3,60 +3,53 @@ package steam
 import (
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"strings"
 )
 
 type (
 	doFunc func(urlStr string, param, header map[string]string) (string, error)
 	Req    interface {
-		Get(urlStr string, param, header map[string]string) (string, error)
-		Post(urlStr string, param, header map[string]string) (string, error)
+		Get(urlStr string) (string, error)
+		Post(urlStr string) (string, error)
 	}
 	defReq struct {
 		c *http.Client
 	}
 )
 
-func (d *defReq) do(method, urlStr string, param, header map[string]string) (res string, err error) {
+func (d *defReq) Get(urlStr string) (body string, err error) {
+
 	var (
-		reader *strings.Reader
-		body   url.Values
-		req    *http.Request
-		rsp    *http.Response
-		b      []byte
+		rsp *http.Response
+		b   []byte
 	)
-	if len(param) > 0 {
-		body = url.Values{}
-		for i, v := range param {
-			body.Add(i, v)
-		}
-		reader = strings.NewReader(body.Encode())
-	} else {
-		reader = strings.NewReader("")
-	}
-	if req, err = http.NewRequest(method, urlStr, reader); err != nil {
-		return
-	}
-	for i, v := range header {
-		req.Header.Add(i, v)
-	}
-	if rsp, err = d.c.Do(req); err != nil {
+	rsp, err = http.Get(urlStr)
+	if err != nil {
 		return
 	}
 	defer rsp.Body.Close()
 	if b, err = ioutil.ReadAll(rsp.Body); err != nil {
 		return
 	}
-	res = string(b)
+	body = string(b)
 	return
 }
-func (d *defReq) Get(urlStr string, param, header map[string]string) (string, error) {
-	return d.do(http.MethodGet, urlStr, param, header)
-}
 
-func (d *defReq) Post(urlStr string, param, header map[string]string) (string, error) {
-	return d.do(http.MethodPost, urlStr, param, header)
+func (d *defReq) Post(urlStr string) (body string, err error) {
+
+	var (
+		rsp *http.Response
+		b   []byte
+	)
+	rsp, err = http.Post(urlStr, "", nil)
+	if err != nil {
+		return
+	}
+	defer rsp.Body.Close()
+	if b, err = ioutil.ReadAll(rsp.Body); err != nil {
+		return
+	}
+	body = string(b)
+	return
 }
 
 func NewDefReq() *defReq {

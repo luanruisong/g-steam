@@ -106,7 +106,7 @@ func (r *openidRes) validateSteamSign(req Req) error {
 	query.Add(mode, "check_authentication")
 	u.RawQuery = query.Encode()
 
-	res, err := req.Post(u.String(), nil, nil)
+	res, err := req.Post(u.String())
 	if err != nil {
 		return err
 	}
