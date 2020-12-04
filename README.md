@@ -1,6 +1,14 @@
-# g-steam
+# g-steam steam web api golang 实现
 
-steam openid 2.0 golang 实现
+## 安装
+`
+  go get -u github.com/luanruisong/g-steam
+`
+
+
+## 使用
+
+### 基础用法
 
 ```go
     //创建client
@@ -25,6 +33,18 @@ steam openid 2.0 golang 实现
         Get(nil) //发起请求，另外支持传入结构体指针用于接收参数
     fmt.Println(raw, err) //打印
 
+```
+
+### 封装实现
+
+```go
+    //统一创建client
+    client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
+    //使用client 创建相关的server
+    appServer := isteam_app.New(client)
+    //调用server包装函数
+    appInfoList, err := apps.GetAppList()
+    fmt.Println(appInfoList,err)
 ```
 
 
