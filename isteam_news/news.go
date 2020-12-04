@@ -1,8 +1,6 @@
 package isteam_news
 
 import (
-	"fmt"
-
 	steam "github.com/luanruisong/g-steam"
 )
 
@@ -33,12 +31,12 @@ func (app *iSteamNews) apiServer() steam.Api {
 }
 
 func (app *iSteamNews) GetNewsForApp(appid, enddate, count uint, feeds string) (uint, []newsItemInfo, error) {
-	api := app.apiServer().Method("GetNewsForApp").Version("v0002").AddParam("appid", fmt.Sprintf("%d", appid))
+	api := app.apiServer().Method("GetNewsForApp").Version("v0002").AddParam("appid", appid)
 	if enddate > 0 {
-		api = api.AddParam("enddate", fmt.Sprintf("%d", enddate))
+		api = api.AddParam("enddate", enddate)
 	}
 	if count > 0 {
-		api = api.AddParam("count", fmt.Sprintf("%d", count))
+		api = api.AddParam("count", count)
 	}
 	if len(feeds) > 0 {
 		api = api.AddParam("feeds", feeds)

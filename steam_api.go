@@ -15,7 +15,8 @@ type (
 		Server(server string) Api
 		Method(method string) Api
 		Version(version string) Api
-		AddParam(k, v string) Api
+		AddParam(k string, v interface{}) Api
+		AddParams(m map[string]interface{}) Api
 		Url() string
 		Get(resPtr interface{}) (raw string, err error)
 	}
@@ -52,14 +53,14 @@ func (s *defApi) Version(version string) Api {
 	return s
 }
 
-func (s *defApi) AddParam(k, v string) Api {
-	s.param.Add(k, v)
+func (s *defApi) AddParam(k string, v interface{}) Api {
+	s.param.Add(k, fmt.Sprintf("%v", v))
 	return s
 }
 
-func (s *defApi) AddParams(m map[string]string) Api {
+func (s *defApi) AddParams(m map[string]interface{}) Api {
 	for i, v := range m {
-		s.param.Add(i, v)
+		s.AddParam(i, v)
 	}
 	return s
 }
@@ -91,7 +92,7 @@ func (s *defApi) valid() error {
 	return nil
 }
 
-func (s *defApi) do(resPtr interface{}) (raw string, err error) {
+func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
 	if err = s.valid(); err != nil {
 		return
 	}
@@ -104,8 +105,4 @@ func (s *defApi) do(resPtr interface{}) (raw string, err error) {
 		err = jsoniter.UnmarshalFromString(raw, resPtr)
 	}
 	return
-}
-
-func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
-	return s.do(resPtr)
 }

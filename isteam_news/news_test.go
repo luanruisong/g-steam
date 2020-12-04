@@ -1,6 +1,7 @@
 package isteam_news
 
 import (
+	"fmt"
 	"testing"
 
 	steam "github.com/luanruisong/g-steam"
@@ -12,5 +13,5 @@ func getTestApps() *iSteamNews {
 }
 
 func TestGetNewsForApp(t *testing.T) {
-	getTestApps().GetNewsForApp(440, 0, 0, "")
+	fmt.Println(getTestApps().GetNewsForApp(440, 0, 0, ""))
 }

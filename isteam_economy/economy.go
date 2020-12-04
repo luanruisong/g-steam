@@ -81,15 +81,15 @@ func (app *iSteamEconomy) apiServer() steam.Api {
 func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error) {
 	var tmp map[string]interface{}
 	api := app.apiServer().Method("GetAssetClassInfo").Version("v0001")
-	api = api.AddParam("appid", fmt.Sprintf("%d", appid)).AddParam("class_count", fmt.Sprintf("%d", classCount))
+	api = api.AddParam("appid", appid).AddParam("class_count", classCount)
 	if len(language) > 0 {
 		api = api.AddParam("language", language)
 	}
 	for i, v := range classId {
-		api = api.AddParam(fmt.Sprintf("classid%d", i), fmt.Sprintf("%d", v))
+		api = api.AddParam(fmt.Sprintf("classid%d", i), v)
 	}
 	for i, v := range instanceid {
-		api = api.AddParam(fmt.Sprintf("instanceid%d", i), fmt.Sprintf("%d", v))
+		api = api.AddParam(fmt.Sprintf("instanceid%d", i), v)
 	}
 	_, err = api.Get(&tmp)
 	if err == nil {
@@ -109,7 +109,7 @@ func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCo
 }
 
 func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) (bool, []assetPriceInfo, error) {
-	api := app.apiServer().Method("GetAssetPrices").Version("v0001").AddParam("appid", fmt.Sprintf("%d", appid))
+	api := app.apiServer().Method("GetAssetPrices").Version("v0001").AddParam("appid", appid)
 	if len(language) > 0 {
 		api = api.AddParam("language", language)
 	}

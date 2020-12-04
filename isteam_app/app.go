@@ -1,8 +1,6 @@
 package isteam_app
 
 import (
-	"fmt"
-
 	"github.com/luanruisong/g-steam"
 )
 
@@ -76,7 +74,7 @@ func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, upToDate
 	_, err := app.apiServer().
 		Method("UpToDateCheck").
 		Version("v1").
-		AddParam("appid", fmt.Sprintf("%d", appid)).
+		AddParam("appid", appid).
 		AddParam("version", version).
 		Get(&res)
 	return res.Response.Success, res.Response.upToDateInfo, err

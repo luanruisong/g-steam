@@ -6,8 +6,7 @@ import (
 )
 
 type (
-	doFunc func(urlStr string, param, header map[string]string) (string, error)
-	Req    interface {
+	Req interface {
 		Get(urlStr string) (string, error)
 		Post(urlStr string) (string, error)
 	}
