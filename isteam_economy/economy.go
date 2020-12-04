@@ -80,8 +80,9 @@ func (app *iSteamEconomy) apiServer() steam.Api {
 
 func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error) {
 	var tmp map[string]interface{}
-	api := app.apiServer().Method("GetAssetClassInfo").Version("v0001")
-	api = api.AddParam("appid", appid).AddParam("class_count", classCount)
+	api := app.apiServer().Method("GetAssetClassInfo").Version("v0001").
+		AddParam("appid", appid).
+		AddParam("class_count", classCount)
 	if len(language) > 0 {
 		api = api.AddParam("language", language)
 	}
