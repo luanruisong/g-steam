@@ -16,6 +16,7 @@ type (
 		Method(method string) Api
 		Version(version string) Api
 		AddParam(k, v string) Api
+		Url() string
 		Get(resPtr interface{}) (raw string, err error)
 	}
 	defApi struct {
@@ -63,8 +64,19 @@ func (s *defApi) AddParams(m map[string]string) Api {
 	return s
 }
 
-func (s *defApi) buildUrl() (*url.URL, error) {
-	return url.Parse(fmt.Sprintf(apiUrl, s.server, s.method, s.version))
+func (s *defApi) buildUrl() (u *url.URL, err error) {
+	if u, err = url.Parse(fmt.Sprintf(apiUrl, s.server, s.method, s.version)); err == nil {
+		if _, ok := s.param["key"]; !ok {
+			s.param.Add("key", s.appKey)
+		}
+		u.RawQuery = s.param.Encode()
+	}
+	return
+}
+
+func (s *defApi) Url() string {
+	u, _ := s.buildUrl()
+	return u.String()
 }
 
 func (s *defApi) valid() error {
@@ -87,11 +99,6 @@ func (s *defApi) do(resPtr interface{}) (raw string, err error) {
 	if u, err = s.buildUrl(); err != nil {
 		return
 	}
-	if _, ok := s.param["key"]; !ok {
-		s.param.Add("key", s.appKey)
-	}
-	u.RawQuery = s.param.Encode()
-
 	raw, err = s.req.Get(u.String())
 	if err == nil && len(raw) > 0 && resPtr != nil {
 		err = jsoniter.UnmarshalFromString(raw, resPtr)
