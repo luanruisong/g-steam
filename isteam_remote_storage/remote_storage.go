@@ -42,9 +42,9 @@ func (app *iSteamRemoteStorage) GetPublishedFileDetails(itemcount uint32, publis
 	return api.Post(nil)
 }
 
-func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid uint64) (uint, []ugcFile, error) {
+func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []ugcFile, error) {
 	api := app.apiServer().Method("GetUGCFileDetails").Version("v1").AddParam("appid", appid).AddParam("ugcid", ugcid)
-	if steamid > 0 {
+	if len(steamid) > 0 {
 		api = api.AddParam("steamid", steamid)
 	}
 	var res struct {
