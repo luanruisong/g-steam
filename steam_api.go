@@ -1,6 +1,7 @@
 package steam
 
 import (
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"net/url"
@@ -102,7 +103,17 @@ func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
 	}
 	raw, err = s.req.Get(u.String())
 	if err == nil && len(raw) > 0 && resPtr != nil {
-		err = jsoniter.UnmarshalFromString(raw, resPtr)
+		var decoder func(string, interface{}) error
+
+		switch u.Query().Get("format") {
+		case "xml":
+			decoder = func(s string, i interface{}) error {
+				return xml.Unmarshal([]byte(s), i)
+			}
+		default:
+			decoder = jsoniter.UnmarshalFromString
+		}
+		err = decoder(raw, resPtr)
 	}
 	return
 }
