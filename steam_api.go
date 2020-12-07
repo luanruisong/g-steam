@@ -20,6 +20,7 @@ type (
 		AddParams(m map[string]interface{}) Api
 		Url() string
 		Get(resPtr interface{}) (raw string, err error)
+		Post(resPtr interface{}) (raw string, err error)
 	}
 	defApi struct {
 		param url.Values
@@ -66,18 +67,20 @@ func (s *defApi) AddParams(m map[string]interface{}) Api {
 	return s
 }
 
-func (s *defApi) buildUrl() (u *url.URL, err error) {
+func (s *defApi) buildUrl(body bool) (u *url.URL, err error) {
 	if u, err = url.Parse(fmt.Sprintf(apiUrl, s.server, s.method, s.version)); err == nil {
-		if _, ok := s.param["key"]; !ok {
+		if len(s.param.Get("key")) == 0 {
 			s.param.Add("key", s.appKey)
 		}
-		u.RawQuery = s.param.Encode()
+		if !body {
+			u.RawQuery = s.param.Encode()
+		}
 	}
 	return
 }
 
 func (s *defApi) Url() string {
-	u, _ := s.buildUrl()
+	u, _ := s.buildUrl(false)
 	return u.String()
 }
 
@@ -93,19 +96,10 @@ func (s *defApi) valid() error {
 	return nil
 }
 
-func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
-	if err = s.valid(); err != nil {
-		return
-	}
-	var u *url.URL
-	if u, err = s.buildUrl(); err != nil {
-		return
-	}
-	raw, err = s.req.Get(u.String())
-	if err == nil && len(raw) > 0 && resPtr != nil {
+func (s *defApi) decode(format, raw string, resPtr interface{}) (err error) {
+	if resPtr != nil && len(raw) > 0 {
 		var decoder func(string, interface{}) error
-
-		switch u.Query().Get("format") {
+		switch format {
 		case "xml":
 			decoder = func(s string, i interface{}) error {
 				return xml.Unmarshal([]byte(s), i)
@@ -114,6 +108,36 @@ func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
 			decoder = jsoniter.UnmarshalFromString
 		}
 		err = decoder(raw, resPtr)
+	}
+	return
+}
+
+func (s *defApi) Get(resPtr interface{}) (raw string, err error) {
+	if err = s.valid(); err != nil {
+		return
+	}
+	var u *url.URL
+	if u, err = s.buildUrl(false); err != nil {
+		return
+	}
+	raw, err = s.req.Get(u.String())
+	if err == nil {
+		err = s.decode(u.Query().Get("format"), raw, resPtr)
+	}
+	return
+}
+
+func (s *defApi) Post(resPtr interface{}) (raw string, err error) {
+	if err = s.valid(); err != nil {
+		return
+	}
+	var u *url.URL
+	if u, err = s.buildUrl(true); err != nil {
+		return
+	}
+	raw, err = s.req.Post(u.String(), s.param.Encode())
+	if err == nil {
+		err = s.decode(s.param.Get("format"), raw, resPtr)
 	}
 	return
 }
