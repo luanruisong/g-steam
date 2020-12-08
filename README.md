@@ -5,7 +5,8 @@
   go get -u github.com/luanruisong/g-steam
 `
 
-
+## 秘钥申请
+   [https://steamcommunity.com/dev/revokekey](https://steamcommunity.com/dev/revokekey)
 ## 使用
 
 ### 基础用法
