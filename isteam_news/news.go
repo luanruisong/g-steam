@@ -10,7 +10,7 @@ const (
 
 type (
 	iSteamNews struct {
-		api steam.Api
+		c steam.Client
 	}
 	newsItemInfo struct {
 		Gid           string `json:"gid" xml:"gid" form:"gid"`
@@ -27,7 +27,7 @@ type (
 )
 
 func (app *iSteamNews) apiServer() steam.Api {
-	return app.api.Server(NewsServerName)
+	return app.c.Api().Server(NewsServerName)
 }
 
 func (app *iSteamNews) GetNewsForApp(appid, enddate, count uint, feeds string) (uint, []newsItemInfo, error) {
@@ -52,5 +52,5 @@ func (app *iSteamNews) GetNewsForApp(appid, enddate, count uint, feeds string) (
 }
 
 func New(c steam.Client) *iSteamNews {
-	return &iSteamNews{api: c.Api()}
+	return &iSteamNews{c: c}
 }

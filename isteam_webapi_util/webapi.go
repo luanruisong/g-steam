@@ -10,7 +10,7 @@ const (
 
 type (
 	iSteamWebapiUtil struct {
-		api steam.Api
+		c steam.Client
 	}
 
 	serverTime struct {
@@ -31,7 +31,7 @@ type (
 )
 
 func (app *iSteamWebapiUtil) apiServer() steam.Api {
-	return app.api.Server(WebApiUtilServerName)
+	return app.c.Api().Server(WebApiUtilServerName)
 }
 
 func (app *iSteamWebapiUtil) GetServerInfo() (serverTime, error) {
@@ -55,5 +55,5 @@ func (app *iSteamWebapiUtil) GetSupportedAPIList() (ApiList, error) {
 }
 
 func New(c steam.Client) *iSteamWebapiUtil {
-	return &iSteamWebapiUtil{api: c.Api()}
+	return &iSteamWebapiUtil{c: c}
 }

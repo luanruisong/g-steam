@@ -12,7 +12,7 @@ const (
 
 type (
 	iPlayerService struct {
-		api steam.Api
+		c steam.Client
 	}
 	playedGame struct {
 		Appid                    uint   `json:"appid" xml:"appid" form:"appid"`
@@ -45,7 +45,7 @@ type (
 )
 
 func (app *iPlayerService) apiServer() steam.Api {
-	return app.api.Server(PlayerServerName)
+	return app.c.Api().Server(PlayerServerName)
 }
 
 func (app *iPlayerService) GetRecentlyPlayedGames(steamid string, count uint) (uint, []playedGame, error) {
@@ -130,7 +130,7 @@ func (app *iPlayerService) GetCommunityBadgeProgress(steamid string, badgeid uin
 }
 
 func New(c steam.Client) *iPlayerService {
-	return &iPlayerService{api: c.Api()}
+	return &iPlayerService{c: c}
 }
 
 func (pg playedGame) GetIcon() string {

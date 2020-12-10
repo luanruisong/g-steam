@@ -12,7 +12,7 @@ const (
 
 type (
 	iSteamUser struct {
-		api steam.Api
+		c steam.Client
 	}
 
 	steamFriend struct {
@@ -57,7 +57,7 @@ type (
 )
 
 func (app *iSteamUser) apiServer() steam.Api {
-	return app.api.Server(UserServerName)
+	return app.c.Api().Server(UserServerName)
 }
 
 func (app *iSteamUser) GetFriendList(steamId string, relationship string) ([]steamFriend, error) {
@@ -133,5 +133,5 @@ func (app *iSteamUser) ResolveVanityURL(vanityurl string) (bool, string, string,
 }
 
 func New(c steam.Client) *iSteamUser {
-	return &iSteamUser{api: c.Api()}
+	return &iSteamUser{c: c}
 }

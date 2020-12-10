@@ -12,7 +12,7 @@ const (
 
 type (
 	iSteamRemoteStorage struct {
-		api steam.Api
+		c steam.Client
 	}
 
 	ugcFile struct {
@@ -23,7 +23,7 @@ type (
 )
 
 func (app *iSteamRemoteStorage) apiServer() steam.Api {
-	return app.api.Server(RemoteStorageServerName)
+	return app.c.Api().Server(RemoteStorageServerName)
 }
 
 func (app *iSteamRemoteStorage) GetCollectionDetails(collectioncount uint32, publishedfileids []uint64) (string, error) {
@@ -58,5 +58,5 @@ func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid s
 }
 
 func New(c steam.Client) *iSteamRemoteStorage {
-	return &iSteamRemoteStorage{api: c.Api()}
+	return &iSteamRemoteStorage{c: c}
 }

@@ -14,7 +14,7 @@ const (
 
 type (
 	iSteamEconomy struct {
-		api steam.Api
+		c steam.Client
 	}
 	action struct {
 		Name string `json:"name" xml:"name" form:"name"`
@@ -75,7 +75,7 @@ type (
 )
 
 func (app *iSteamEconomy) apiServer() steam.Api {
-	return app.api.Server(EconomyServerName)
+	return app.c.Api().Server(EconomyServerName)
 }
 
 func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error) {
@@ -127,5 +127,5 @@ func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) 
 	return res.Result.Success, res.Result.Assets, err
 }
 func New(c steam.Client) *iSteamEconomy {
-	return &iSteamEconomy{api: c.Api()}
+	return &iSteamEconomy{c: c}
 }

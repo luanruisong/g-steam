@@ -12,7 +12,7 @@ const (
 
 type (
 	iSteamUserStats struct {
-		api steam.Api
+		c steam.Client
 	}
 	achievementInfo struct {
 		Name    string  `json:"name" xml:"name" form:"name"`
@@ -60,7 +60,7 @@ type (
 )
 
 func (app *iSteamUserStats) apiServer() steam.Api {
-	return app.api.Server(UserStatsServerName)
+	return app.c.Api().Server(UserStatsServerName)
 }
 
 func (app *iSteamUserStats) GetGlobalAchievementPercentagesForApp(gameId uint) ([]achievementInfo, error) {
@@ -162,5 +162,5 @@ func (app *iSteamUserStats) GetUserStatsForGame(appId uint, steamid string) (sin
 }
 
 func New(c steam.Client) *iSteamUserStats {
-	return &iSteamUserStats{api: c.Api()}
+	return &iSteamUserStats{c: c}
 }

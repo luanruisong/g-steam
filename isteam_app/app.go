@@ -10,7 +10,7 @@ const (
 
 type (
 	iSteamApps struct {
-		api steam.Api
+		c steam.Client
 	}
 	appInfo struct {
 		Appid uint   `json:"appid" xml:"appid" form:"appid"`
@@ -37,7 +37,7 @@ type (
 )
 
 func (app *iSteamApps) apiServer() steam.Api {
-	return app.api.Server(AppServerName)
+	return app.c.Api().Server(AppServerName)
 }
 func (app *iSteamApps) GetAppList() ([]appInfo, error) {
 	var res struct {
@@ -81,5 +81,5 @@ func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, upToDate
 }
 
 func New(c steam.Client) *iSteamApps {
-	return &iSteamApps{api: c.Api()}
+	return &iSteamApps{c: c}
 }
