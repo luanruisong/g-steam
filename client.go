@@ -30,6 +30,11 @@ func (c *client) RenderTo(callback string) string {
 	return renderTo(callback)
 }
 
+// maybe open other to login steam
+func (c *client) MaybeRenderTo(url, callback string) string {
+	return renderTo(callback, url)
+}
+
 func (c *client) OpenidBindQuery(param url.Values) (res *openidRes, err error) {
 	return openidBindQuery(param, c.req)
 }

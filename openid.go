@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	loginUrl = "http://steamcommunity.com/openid/login"
-	nsUrl    = "http://specs.openid.net/auth/2.0"
-	nsSelect = nsUrl + "/identifier_select"
+	SteamBaseLoginUrl = "http://steamcommunity.com/openid/login"
+	NsUrl             = "http://specs.openid.net/auth/2.0"
+	NsSelect          = NsUrl + "/identifier_select"
 )
 
 var t reflect.Type
@@ -35,15 +35,19 @@ type (
 	}
 )
 
-func renderTo(callback string) string {
-	u, _ := url.Parse(loginUrl)
+func renderTo(callback string, tags ...string) string {
+	tag := SteamBaseLoginUrl
+	if len(tags) > 0 && len(tags[0]) > 0 {
+		tag = tags[0]
+	}
+	u, _ := url.Parse(tag)
 	query := u.Query()
-	query.Add("openid.ns", nsUrl)
+	query.Add("openid.ns", NsUrl)
 	query.Add("openid.mode", "checkid_setup")
 	query.Add("openid.return_to", callback)
 	query.Add("openid.realm", callback)
-	query.Add("openid.identity", nsSelect)
-	query.Add("openid.claimed_id", nsSelect)
+	query.Add("openid.identity", NsSelect)
+	query.Add("openid.claimed_id", NsSelect)
 	u.RawQuery = query.Encode()
 	return u.String()
 }
@@ -92,7 +96,7 @@ func (r *openidRes) validateSteamSign(req Req) error {
 	if len(r.Error) > 0 {
 		return errors.New(r.Error)
 	}
-	u, _ := url.Parse(loginUrl)
+	u, _ := url.Parse(SteamBaseLoginUrl)
 	v := reflect.ValueOf(r).Elem()
 	const mode = "openid.mode"
 	query := u.Query()
