@@ -15,7 +15,7 @@ steam web api golang realize
 
 ## :bell:Premise
 
-   Before using, you must go to [steam](https://steamcommunity.com/dev/revokekey) to apply for your key.
+   Before using, you must go to [steam](https://steamcommunity.com/dev/appkey) to apply for your key.
    
 ## :anchor:Usage
 
