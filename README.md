@@ -1,53 +1,78 @@
-# g-steam steam web api golang 实现
+# g-steam 
 
-## 安装
+steam web api golang realize
+
+![](https://img.shields.io/badge/macOS-Development-d0d1d4)
+![](https://img.shields.io/badge/golang-1.15-blue)
+![](https://img.shields.io/badge/godoc-reference-3C57C4)
+![](https://img.shields.io/badge/version-0.1-r)
+
+## :rocket:Installation
+
 `
   go get -u github.com/luanruisong/g-steam
 `
 
-## 秘钥申请
-   [https://steamcommunity.com/dev/revokekey](https://steamcommunity.com/dev/revokekey)
-## 使用
+## :bell:Premise
 
-### 基础用法
+   Before using, you must go to [steam](https://steamcommunity.com/dev/revokekey) to apply for your key.
+   
+## :anchor:Usage
+
+### Basic usage
 
 ```go
-    //创建client
+    //Create client
     client := steam.NewClient("appkey")
-    //获取steam的render地址
-    //path -> steam openid 登陆认证地址
-    //callbackPath -> steam认证成功后 跳转的浏览器url
+    //Get the render address of steam
+    //path -> steam openid Login authentication address
+    //callbackPath -> steam browser url to redirect to after successful authentication
     path := client.RenderTo(callbackPath)
     
-    //创建接收返回对象
+    //Create receiving return object
     res, err := client.OpenidBindQuery(request.URL.Query())
     fmt.Println(res, err)
-    fmt.Println(res.GetSteamId()) //获取steamid
+    fmt.Println(res.GetSteamId()) //Get steamid
 
-    //创建api对象
+    //Create api object
     api := client.Api()
-    //raw 原始返回
-    raw, err := api.Server("ISteamUser").//设置服务接口
-        Method("GetPlayerSummaries").//设置访问函数
-        Version("v0002").//设置版本号
-        AddParam("steamids", "76561198421538055").//设置参数 （key参数不设置默认会添加client的appKey）
-        Get(nil) //发起请求，另外支持传入结构体指针用于接收参数
-    fmt.Println(raw, err) //打印
+    //raw return
+    raw, err := api.Server("ISteamUser").//Set up service interface
+        Method("GetPlayerSummaries").//Set access function
+        Version("v0002").//Set version
+        AddParam("steamids", "76561198421538055").//Setting parameters (If the key parameter is not set, the client's appKey will be added by default)
+        Get(nil) //Initiate a request, and support the incoming structure pointer to receive parameters
+    fmt.Println(raw, err) 
 
 ```
 
-### 封装实现
+### Package API
+
+In addition to providing basic encapsulation, we also encapsulate common APIs to make it more convenient to use.
 
 ```go
-    //统一创建client
+    //Unified creation of client
     client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
-    //使用client 创建相关的server
+    //Use client to create related server
     appServer := isteam_app.New(client)
-    //调用server包装函数
+    //Call the server wrapper function
     appInfoList, err := apps.GetAppList()
     fmt.Println(appInfoList,err)
 ```
 
+## :tada:Contribute code
+
+Open source projects are inseparable from everyone’s support. If you have a good idea, encountered some bugs and fixed them, and corrected the errors in the document, please submit a Pull Request~
+   1. Fork this project to your own repo
+   2. Clone the project in the past, that is, the project in your warehouse, to your local
+   3. Modify the code
+   4. Push to your own library after commit
+   5. Initiate a PR (pull request) request and submit it to the `provide` branch
+   6. Waiting to merge
+
+## :closed_book:License
+
+Distributed under MIT License, please see license file within the code for more details.
 
 
 
