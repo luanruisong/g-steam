@@ -51,13 +51,16 @@ steam web api golang realize
 In addition to providing basic encapsulation, we also encapsulate common APIs to make it more convenient to use.
 
 ```go
-    //Unified creation of client
-    client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
     //Use client to create related server
-    appServer := isteam_app.New(client)
+    appService := isteam_app.New(client)
+    iplyerSercer := iplayer_service.New(client)
+    economyService := isteam_economy.New(client)
+    newsService := isteam_news.New(client)
+    remoteStorageService := isteam_remote_storage.New(client)
+    userService := isteam_user.New(client)
+    userStatsService := isteam_user_stats.New(client)
+    util := isteam_webapi_util.New(client)
     //Call the server wrapper function
-    appInfoList, err := apps.GetAppList()
-    fmt.Println(appInfoList,err)
 ```
 
 ## :tada:Contribute code
