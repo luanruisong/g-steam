@@ -12,16 +12,16 @@ const (
 
 type (
 	IPlayerService interface {
-		GetRecentlyPlayedGames(steamid string, count uint) (uint, []playedGame, error)
-		GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []playedGame, error)
+		GetRecentlyPlayedGames(steamid string, count uint) (uint, []PlayedGame, error)
+		GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []PlayedGame, error)
 		GetSteamLevel(steamid string) (uint, error)
-		GetBadges(steamid string) (badge, error)
+		GetBadges(steamid string) (Badge, error)
 		GetCommunityBadgeProgress(steamid string, badgeid uint) ([]Quest, error)
 	}
 	iPlayerService struct {
 		c steam.Client
 	}
-	playedGame struct {
+	PlayedGame struct {
 		Appid                    uint   `json:"appid" xml:"appid" form:"appid"`
 		Name                     string `json:"name" xml:"name" form:"name"`
 		Playtime2weeks           uint   `json:"playtime_2weeks" xml:"playtime_2weeks" form:"playtime_2weeks"`
@@ -31,15 +31,15 @@ type (
 		HasCommunityVisibleStats bool   `json:"has_community_visible_stats" xml:"has_community_visible_stats" form:"has_community_visible_stats"`
 	}
 
-	badgesInfo struct {
+	BadgesInfo struct {
 		Badgeid        uint `json:"badgeid"`
 		Level          uint `json:"level"`
 		CompletionTime uint `json:"completion_time"`
 		Xp             uint `json:"xp"`
 		Scarcity       uint `json:"scarcity"`
 	}
-	badge struct {
-		Badges                     []badgesInfo `json:"badges"`
+	Badge struct {
+		Badges                     []BadgesInfo `json:"badges"`
 		PlayerXp                   uint         `json:"player_xp"`
 		PlayerLevel                uint         `json:"player_level"`
 		PlayerXpNeededToLevelUp    uint         `json:"player_xp_needed_to_level_up"`
@@ -55,7 +55,7 @@ func (app *iPlayerService) apiServer() steam.Api {
 	return app.c.Api().Server(PlayerServerName)
 }
 
-func (app *iPlayerService) GetRecentlyPlayedGames(steamid string, count uint) (uint, []playedGame, error) {
+func (app *iPlayerService) GetRecentlyPlayedGames(steamid string, count uint) (uint, []PlayedGame, error) {
 	api := app.apiServer().
 		Method("GetRecentlyPlayedGames").
 		Version("v1").
@@ -66,14 +66,14 @@ func (app *iPlayerService) GetRecentlyPlayedGames(steamid string, count uint) (u
 	var res struct {
 		Response struct {
 			TotalCount uint         `json:"total_count" xml:"total_count" form:"total_count"`
-			Games      []playedGame `json:"games" xml:"games" form:"games"`
+			Games      []PlayedGame `json:"games" xml:"games" form:"games"`
 		} `json:"response" xml:"response" form:"response"`
 	}
 	_, err := api.Get(&res)
 	return res.Response.TotalCount, res.Response.Games, err
 }
 
-func (app *iPlayerService) GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []playedGame, error) {
+func (app *iPlayerService) GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []PlayedGame, error) {
 	api := app.apiServer().
 		Method("GetOwnedGames").
 		Version("v1").
@@ -88,7 +88,7 @@ func (app *iPlayerService) GetOwnedGames(steamid string, includeAppInfo, include
 	var res struct {
 		Response struct {
 			GameCount uint         `json:"game_count" xml:"game_count" form:"game_count"`
-			Games     []playedGame `json:"games" xml:"games" form:"games"`
+			Games     []PlayedGame `json:"games" xml:"games" form:"games"`
 		} `json:"response" xml:"response" form:"response"`
 	}
 	_, err := api.Get(&res)
@@ -109,13 +109,13 @@ func (app *iPlayerService) GetSteamLevel(steamid string) (uint, error) {
 	return res.Response.PlayerLevel, err
 }
 
-func (app *iPlayerService) GetBadges(steamid string) (badge, error) {
+func (app *iPlayerService) GetBadges(steamid string) (Badge, error) {
 	api := app.apiServer().
 		Method("GetBadges").
 		Version("v1").
 		AddParam("steamid", steamid)
 	var res struct {
-		Response badge `json:"response" xml:"response" form:"response"`
+		Response Badge `json:"response" xml:"response" form:"response"`
 	}
 	_, err := api.Get(&res)
 	return res.Response, err
@@ -140,9 +140,9 @@ func New(c steam.Client) IPlayerService {
 	return &iPlayerService{c: c}
 }
 
-func (pg playedGame) GetIcon() string {
+func (pg PlayedGame) GetIcon() string {
 	return FmtImg(pg.Appid, pg.ImgIconUrl)
 }
-func (pg playedGame) GetLogo() string {
+func (pg PlayedGame) GetLogo() string {
 	return FmtImg(pg.Appid, pg.ImgLogoUrl)
 }

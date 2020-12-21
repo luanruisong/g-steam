@@ -14,24 +14,24 @@ const (
 
 type (
 	ISteamEconomy interface {
-		GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error)
-		GetAssetPrices(appid uint, language, currency string) (bool, []assetPriceInfo, error)
+		GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]AssetClassInfo, err error)
+		GetAssetPrices(appid uint, language, currency string) (bool, []AssetPriceInfo, error)
 	}
 	iSteamEconomy struct {
 		c steam.Client
 	}
-	action struct {
+	Action struct {
 		Name string `json:"name" xml:"name" form:"name"`
 		Link string `json:"link" xml:"link" form:"link"`
 	}
-	tag struct {
+	Tag struct {
 		InternalName string `json:"internal_name" xml:"internal_name" form:"internal_name"`
 		Name         string `json:"name" xml:"name" form:"name"`
 		Category     string `json:"category" xml:"category" form:"category"`
 		Color        string `json:"color" xml:"color" form:"color"`
 		CategoryName string `json:"category_name" xml:"category_name" form:"category_name"`
 	}
-	assetClassInfo struct {
+	AssetClassInfo struct {
 		Classid                     string            `json:"classid" xml:"classid" form:"classid"`
 		IconUrl                     string            `json:"icon_url" xml:"icon_url" form:"icon_url"`
 		IconUrlLarge                string            `json:"icon_url_large" xml:"icon_url_large" form:"icon_url_large"`
@@ -48,9 +48,9 @@ type (
 		MarketTradableRestriction   string            `json:"market_tradable_restriction" xml:"market_tradable_restriction" form:"market_tradable_restriction"`
 		MarketMarketableRestriction string            `json:"market_marketable_restriction" xml:"market_marketable_restriction" form:"market_marketable_restriction"`
 		Fraudwarnings               string            `json:"fraudwarnings" xml:"fraudwarnings" form:"fraudwarnings"`
-		Actions                     map[string]action `json:"actions" xml:"actions" form:"actions"`
-		MarketActions               map[string]action `json:"market_actions" xml:"market_actions" form:"market_actions"`
-		Tags                        map[string]tag    `json:"market_actions" xml:"market_actions" form:"market_actions"`
+		Actions                     map[string]Action `json:"actions" xml:"actions" form:"actions"`
+		MarketActions               map[string]Action `json:"market_actions" xml:"market_actions" form:"market_actions"`
+		Tags                        map[string]Tag    `json:"market_actions" xml:"market_actions" form:"market_actions"`
 		//appdata
 		AppData struct {
 			DefIndex   string `json:"def_index" xml:"def_index" form:"def_index"`
@@ -63,7 +63,7 @@ type (
 		} `json:"app_data" xml:"app_data" form:"app_data"`
 	}
 
-	assetPriceInfo struct {
+	AssetPriceInfo struct {
 		Prices         map[string]uint `json:"prices" xml:"prices" form:"prices"`
 		OriginalPrices map[string]uint `json:"original_prices" xml:"original_prices" form:"original_prices"`
 		Name           string          `json:"name" xml:"name" form:"name"`
@@ -82,7 +82,7 @@ func (app *iSteamEconomy) apiServer() steam.Api {
 	return app.c.Api().Server(EconomyServerName)
 }
 
-func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error) {
+func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]AssetClassInfo, err error) {
 	var tmp map[string]interface{}
 	api := app.apiServer().Method("GetAssetClassInfo").Version("v0001").
 		AddParam("appid", appid).
@@ -113,7 +113,7 @@ func (app *iSteamEconomy) GetAssetClassInfo(appid uint, language string, classCo
 	return
 }
 
-func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) (bool, []assetPriceInfo, error) {
+func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) (bool, []AssetPriceInfo, error) {
 	api := app.apiServer().Method("GetAssetPrices").Version("v0001").AddParam("appid", appid)
 	if len(language) > 0 {
 		api = api.AddParam("language", language)
@@ -124,7 +124,7 @@ func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) 
 	var res struct {
 		Result struct {
 			Success bool             `json:"success" xml:"success" form:"success"`
-			Assets  []assetPriceInfo `json:"assets" xml:"assets" form:"assets"`
+			Assets  []AssetPriceInfo `json:"assets" xml:"assets" form:"assets"`
 		} `json:"result" xml:"result" form:"result"`
 	}
 	_, err := api.Get(&res)

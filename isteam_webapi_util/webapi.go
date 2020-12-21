@@ -10,14 +10,14 @@ const (
 
 type (
 	ISteamWebapiUtil interface {
-		GetServerInfo() (serverTime, error)
+		GetServerInfo() (ServerTime, error)
 		GetSupportedAPIList() (ApiList, error)
 	}
 	iSteamWebapiUtil struct {
 		c steam.Client
 	}
 
-	serverTime struct {
+	ServerTime struct {
 		Servertime       int64  `json:"servertime" xml:"servertime" form:"servertime"`
 		Servertimestring string `json:"servertimestring" xml:"servertimestring" form:"servertimestring"`
 	}
@@ -38,11 +38,11 @@ func (app *iSteamWebapiUtil) apiServer() steam.Api {
 	return app.c.Api().Server(WebApiUtilServerName)
 }
 
-func (app *iSteamWebapiUtil) GetServerInfo() (serverTime, error) {
+func (app *iSteamWebapiUtil) GetServerInfo() (ServerTime, error) {
 	api := app.apiServer().
 		Method("GetServerInfo").
 		Version("v0001")
-	var res serverTime
+	var res ServerTime
 	_, err := api.Get(&res)
 	return res, err
 }

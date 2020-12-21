@@ -10,18 +10,18 @@ const (
 
 type (
 	ISteamApps interface {
-		GetAppList() ([]appInfo, error)
-		GetServersAtAddress(ip string) (bool, []serverInfo, error)
-		UpToDateCheck(appid uint, version string) (bool, upToDateInfo, error)
+		GetAppList() ([]AppInfo, error)
+		GetServersAtAddress(ip string) (bool, []ServerInfo, error)
+		UpToDateCheck(appid uint, version string) (bool, UpToDateInfo, error)
 	}
 	iSteamApps struct {
 		c steam.Client
 	}
-	appInfo struct {
+	AppInfo struct {
 		Appid uint   `json:"appid" xml:"appid" form:"appid"`
 		Name  string `json:"name" xml:"name" form:"name"`
 	}
-	serverInfo struct {
+	ServerInfo struct {
 		Addr     string `json:"addr" xml:"addr" form:"addr"`
 		Gmsindex uint   `json:"gmsindex" xml:"gmsindex" form:"gmsindex"`
 		Appid    uint   `json:"appid" xml:"appid" form:"appid"`
@@ -33,7 +33,7 @@ type (
 		Specpot  uint   `json:"specpot" xml:"specpot" form:"specpot"`
 	}
 
-	upToDateInfo struct {
+	UpToDateInfo struct {
 		UpToDate          bool   `json:"up_to_date" xml:"up_to_date" form:"up_to_date"`
 		VersionIsListable bool   `json:"version_is_listable" xml:"version_is_listable" form:"version_is_listable"`
 		RequiredVersion   uint   `json:"required_version" xml:"required_version" form:"required_version"`
@@ -44,21 +44,21 @@ type (
 func (app *iSteamApps) apiServer() steam.Api {
 	return app.c.Api().Server(AppServerName)
 }
-func (app *iSteamApps) GetAppList() ([]appInfo, error) {
+func (app *iSteamApps) GetAppList() ([]AppInfo, error) {
 	var res struct {
 		Applist struct {
-			Apps []appInfo `json:"apps" form:"apps"`
+			Apps []AppInfo `json:"apps" form:"apps"`
 		} `json:"applist" form:"applist"`
 	}
 	_, err := app.apiServer().Method("GetAppList").Version("v2").Get(&res)
 	return res.Applist.Apps, err
 }
 
-func (app *iSteamApps) GetServersAtAddress(ip string) (bool, []serverInfo, error) {
+func (app *iSteamApps) GetServersAtAddress(ip string) (bool, []ServerInfo, error) {
 	var res struct {
 		Response struct {
 			Success bool         `json:"success" form:"success"`
-			Servers []serverInfo `json:"servers" form:"servers"`
+			Servers []ServerInfo `json:"servers" form:"servers"`
 		} `json:"response" form:"response"`
 	}
 	_, err := app.apiServer().
@@ -69,10 +69,10 @@ func (app *iSteamApps) GetServersAtAddress(ip string) (bool, []serverInfo, error
 	return res.Response.Success, res.Response.Servers, err
 }
 
-func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, upToDateInfo, error) {
+func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, UpToDateInfo, error) {
 	var res struct {
 		Response struct {
-			upToDateInfo
+			UpToDateInfo
 			Success bool `json:"success" form:"success"`
 		} `json:"response" form:"response"`
 	}
@@ -82,7 +82,7 @@ func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, upToDate
 		AddParam("appid", appid).
 		AddParam("version", version).
 		Get(&res)
-	return res.Response.Success, res.Response.upToDateInfo, err
+	return res.Response.Success, res.Response.UpToDateInfo, err
 }
 
 func New(c steam.Client) ISteamApps {

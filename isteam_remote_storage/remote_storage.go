@@ -14,13 +14,13 @@ type (
 	ISteamRemoteStorage interface {
 		GetCollectionDetails(collectioncount uint32, publishedfileids []uint64) (string, error)
 		GetPublishedFileDetails(itemcount uint32, publishedfileids []uint64) (string, error)
-		GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []ugcFile, error)
+		GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []UgcFile, error)
 	}
 	iSteamRemoteStorage struct {
 		c steam.Client
 	}
 
-	ugcFile struct {
+	UgcFile struct {
 		Filename string `json:"filename" xml:"filename" form:"filename"`
 		Url      string `json:"url" xml:"url" form:"url"`
 		Size     uint   `json:"size" xml:"size" form:"size"`
@@ -47,7 +47,7 @@ func (app *iSteamRemoteStorage) GetPublishedFileDetails(itemcount uint32, publis
 	return api.Post(nil)
 }
 
-func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []ugcFile, error) {
+func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []UgcFile, error) {
 	api := app.apiServer().Method("GetUGCFileDetails").Version("v1").AddParam("appid", appid).AddParam("ugcid", ugcid)
 	if len(steamid) > 0 {
 		api = api.AddParam("steamid", steamid)
@@ -56,7 +56,7 @@ func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid s
 		Status struct {
 			Code uint `json:"code" xml:"code" form:"code"`
 		} `json:"status" xml:"status" form:"status"`
-		Data []ugcFile `json:"data" xml:"data" form:"data"`
+		Data []UgcFile `json:"data" xml:"data" form:"data"`
 	}
 	_, err := api.Get(&res)
 	return res.Status.Code, res.Data, err

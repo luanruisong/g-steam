@@ -12,43 +12,43 @@ const (
 
 type (
 	ISteamUserStats interface {
-		GetGlobalAchievementPercentagesForApp(gameId uint) ([]achievementInfo, error)
-		GetGlobalStatsForGame(appId uint, names []string, startDate, endDate int64) (uint, map[string]globalState, error)
+		GetGlobalAchievementPercentagesForApp(gameId uint) ([]AchievementInfo, error)
+		GetGlobalStatsForGame(appId uint, names []string, startDate, endDate int64) (uint, map[string]GlobalState, error)
 		GetNumberOfCurrentPlayers(appId uint) (uint, uint, error)
-		GetPlayerAchievements(appId uint, steamid, l string) (playerStats, error)
-		GetSchemaForGame(appId uint, l string) (gameSchema, error)
-		GetUserStatsForGame(appId uint, steamid string) (singlePlayerStats, error)
+		GetPlayerAchievements(appId uint, steamid, l string) (PlayerStats, error)
+		GetSchemaForGame(appId uint, l string) (GameSchema, error)
+		GetUserStatsForGame(appId uint, steamid string) (SinglePlayerStats, error)
 	}
 	iSteamUserStats struct {
 		c steam.Client
 	}
-	achievementInfo struct {
+	AchievementInfo struct {
 		Name    string  `json:"name" xml:"name" form:"name"`
 		Percent float64 `json:"percent" xml:"percent" form:"percent"`
 	}
-	globalState struct {
+	GlobalState struct {
 		Total string `json:"total" xml:"total" form:"total"`
 	}
-	achievementsInfo struct {
+	AchievementsInfo struct {
 		Apiname    string `json:"apiname" xml:"apiname" form:"apiname"`
 		Achieved   uint   `json:"achieved" xml:"achieved" form:"achieved"`
 		Unlocktime int64  `json:"unlocktime" xml:"unlocktime" form:"unlocktime"`
 	}
-	singlePlayerStats struct {
+	SinglePlayerStats struct {
 		SteamId  string `json:"steamID" xml:"steamID" form:"steamID"`
 		GameName string `json:"gameName" xml:"gameName" form:"gameName"`
 	}
-	playerStats struct {
-		singlePlayerStats
+	PlayerStats struct {
+		SinglePlayerStats
 		Success      bool               `json:"success" xml:"success" form:"success"`
-		Achievements []achievementsInfo `json:"achievements" xml:"achievements" form:"achievements"`
+		Achievements []AchievementsInfo `json:"achievements" xml:"achievements" form:"achievements"`
 	}
-	schemaStats struct {
+	SchemaStats struct {
 		Name         string `json:"name" xml:"name" form:"name"`
 		DefaultValue int    `json:"defaultvalue" xml:"defaultvalue" form:"defaultvalue"`
 		DisplayName  string `json:"displayName" xml:"displayName" form:"displayName"`
 	}
-	schemaAchievements struct {
+	SchemaAchievements struct {
 		Name         string `json:"name" xml:"name" form:"name"`
 		DefaultValue int    `json:"defaultvalue" xml:"defaultvalue" form:"defaultvalue"`
 		DisplayName  string `json:"displayName" xml:"displayName" form:"displayName"`
@@ -57,12 +57,12 @@ type (
 		Icon         string `json:"icon" xml:"icon" form:"icon"`
 		Icongray     string `json:"icongray" xml:"icongray" form:"icongray"`
 	}
-	gameSchema struct {
+	GameSchema struct {
 		GameName           string `json:"gameName" xml:"gameName" form:"gameName"`
 		GameVersion        string `json:"gameVersion" xml:"gameVersion" form:"gameVersion"`
 		AvailableGameStats struct {
-			Stats        []schemaStats        `json:"stats" xml:"stats" form:"stats"`
-			Achievements []schemaAchievements `json:"achievements" xml:"achievements" form:"achievements"`
+			Stats        []SchemaStats        `json:"stats" xml:"stats" form:"stats"`
+			Achievements []SchemaAchievements `json:"achievements" xml:"achievements" form:"achievements"`
 		} `json:"availableGameStats" xml:"availableGameStats" form:"availableGameStats"`
 	}
 )
@@ -71,21 +71,21 @@ func (app *iSteamUserStats) apiServer() steam.Api {
 	return app.c.Api().Server(UserStatsServerName)
 }
 
-func (app *iSteamUserStats) GetGlobalAchievementPercentagesForApp(gameId uint) ([]achievementInfo, error) {
+func (app *iSteamUserStats) GetGlobalAchievementPercentagesForApp(gameId uint) ([]AchievementInfo, error) {
 	api := app.apiServer().
 		Method("GetGlobalAchievementPercentagesForApp").
 		Version("v0002").
 		AddParam("gameid", gameId)
 	var res struct {
 		AchievementPercenTages struct {
-			Achievements []achievementInfo `json:"achievements" xml:"achievements" form:"achievements"`
+			Achievements []AchievementInfo `json:"achievements" xml:"achievements" form:"achievements"`
 		} `json:"achievementpercentages" xml:"achievementpercentages" form:"achievementpercentages"`
 	}
 	_, err := api.Get(&res)
 	return res.AchievementPercenTages.Achievements, err
 }
 
-func (app *iSteamUserStats) GetGlobalStatsForGame(appId uint, names []string, startDate, endDate int64) (uint, map[string]globalState, error) {
+func (app *iSteamUserStats) GetGlobalStatsForGame(appId uint, names []string, startDate, endDate int64) (uint, map[string]GlobalState, error) {
 	api := app.apiServer().
 		Method("GetGlobalStatsForGame").
 		Version("v0001").
@@ -105,7 +105,7 @@ func (app *iSteamUserStats) GetGlobalStatsForGame(appId uint, names []string, st
 	var res struct {
 		Response struct {
 			Result      uint                   `json:"result" xml:"result" form:"result"`
-			GlobalStats map[string]globalState `json:"globalstats" xml:"globalstats" form:"globalstats"`
+			GlobalStats map[string]GlobalState `json:"globalstats" xml:"globalstats" form:"globalstats"`
 		} `json:"response" xml:"response" form:"response"`
 	}
 	_, err := api.Get(&res)
@@ -127,7 +127,7 @@ func (app *iSteamUserStats) GetNumberOfCurrentPlayers(appId uint) (uint, uint, e
 	return res.Response.Result, res.Response.PlayerCount, err
 }
 
-func (app *iSteamUserStats) GetPlayerAchievements(appId uint, steamid, l string) (playerStats, error) {
+func (app *iSteamUserStats) GetPlayerAchievements(appId uint, steamid, l string) (PlayerStats, error) {
 	api := app.apiServer().
 		Method("GetPlayerAchievements").
 		Version("v1").
@@ -136,13 +136,13 @@ func (app *iSteamUserStats) GetPlayerAchievements(appId uint, steamid, l string)
 		api = api.AddParam("l", l)
 	}
 	var res struct {
-		PlayerStats playerStats `json:"playerstats" xml:"playerstats" form:"playerstats"`
+		PlayerStats PlayerStats `json:"playerstats" xml:"playerstats" form:"playerstats"`
 	}
 	_, err := api.Get(&res)
 	return res.PlayerStats, err
 }
 
-func (app *iSteamUserStats) GetSchemaForGame(appId uint, l string) (gameSchema, error) {
+func (app *iSteamUserStats) GetSchemaForGame(appId uint, l string) (GameSchema, error) {
 	api := app.apiServer().
 		Method("GetSchemaForGame").
 		Version("v2").
@@ -151,19 +151,19 @@ func (app *iSteamUserStats) GetSchemaForGame(appId uint, l string) (gameSchema, 
 		api = api.AddParam("l", l)
 	}
 	var res struct {
-		Game gameSchema `json:"game" xml:"game" form:"game"`
+		Game GameSchema `json:"game" xml:"game" form:"game"`
 	}
 	_, err := api.Get(&res)
 	return res.Game, err
 }
 
-func (app *iSteamUserStats) GetUserStatsForGame(appId uint, steamid string) (singlePlayerStats, error) {
+func (app *iSteamUserStats) GetUserStatsForGame(appId uint, steamid string) (SinglePlayerStats, error) {
 	api := app.apiServer().
 		Method("GetUserStatsForGame").
 		Version("v2").
 		AddParam("appid", appId).AddParam("steamid", steamid)
 	var res struct {
-		PlayerStats singlePlayerStats `json:"playerstats" xml:"playerstats" form:"playerstats"`
+		PlayerStats SinglePlayerStats `json:"playerstats" xml:"playerstats" form:"playerstats"`
 	}
 	_, err := api.Get(&res)
 	return res.PlayerStats, err
