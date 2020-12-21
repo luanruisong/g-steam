@@ -96,3 +96,8 @@ func TestProfile(t *testing.T) {
 	//编辑地址
 	//{player.profileurl}/edit/settings
 }
+
+func TestRanderTo(t *testing.T) {
+	fmt.Println(NewClient("A4B860E073D648F56F40E4EC0D8A6BF3").MaybeRenderTo("http://localhost:1880/openid/login", "http://173.82.119.204/callback"))
+	//fmt.Println(NewClient("A4B860E073D648F56F40E4EC0D8A6BF3").RenderTo("http://173.82.119.204/callback"))
+}
