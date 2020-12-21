@@ -6,6 +6,11 @@ import (
 
 type (
 	Client interface {
+		SetReq(req Req)
+		RenderTo(callback string) string
+		MaybeRenderTo(url, callback string) string
+		OpenidBindQuery(param url.Values) (res *openidRes, err error)
+		OpenidBindMap(param map[string]string) (res *openidRes, err error)
 		Api() Api
 	}
 
