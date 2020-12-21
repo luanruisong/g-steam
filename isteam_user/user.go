@@ -11,6 +11,13 @@ const (
 )
 
 type (
+	ISteamUser interface {
+		GetFriendList(steamId string, relationship string) ([]steamFriend, error)
+		GetPlayerBans(steamIds ...string) ([]playerBans, error)
+		GetPlayerSummaries(steamIds ...string) ([]userProfile, error)
+		GetUserGroupList(steamId string) (bool, []groupInfo, error)
+		ResolveVanityURL(vanityurl string) (bool, string, string, error)
+	}
 	iSteamUser struct {
 		c steam.Client
 	}
@@ -132,6 +139,6 @@ func (app *iSteamUser) ResolveVanityURL(vanityurl string) (bool, string, string,
 	return res.Response.Success == 1, res.Response.Steamid, res.Response.Message, err
 }
 
-func New(c steam.Client) *iSteamUser {
+func New(c steam.Client) ISteamUser {
 	return &iSteamUser{c: c}
 }

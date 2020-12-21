@@ -13,6 +13,10 @@ const (
 )
 
 type (
+	ISteamEconomy interface {
+		GetAssetClassInfo(appid uint, language string, classCount uint, classId, instanceid []uint64) (succ bool, m map[string]assetClassInfo, err error)
+		GetAssetPrices(appid uint, language, currency string) (bool, []assetPriceInfo, error)
+	}
 	iSteamEconomy struct {
 		c steam.Client
 	}
@@ -126,6 +130,6 @@ func (app *iSteamEconomy) GetAssetPrices(appid uint, language, currency string) 
 	_, err := api.Get(&res)
 	return res.Result.Success, res.Result.Assets, err
 }
-func New(c steam.Client) *iSteamEconomy {
+func New(c steam.Client) ISteamEconomy {
 	return &iSteamEconomy{c: c}
 }

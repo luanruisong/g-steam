@@ -9,6 +9,11 @@ const (
 )
 
 type (
+	ISteamApps interface {
+		GetAppList() ([]appInfo, error)
+		GetServersAtAddress(ip string) (bool, []serverInfo, error)
+		UpToDateCheck(appid uint, version string) (bool, upToDateInfo, error)
+	}
 	iSteamApps struct {
 		c steam.Client
 	}
@@ -80,6 +85,6 @@ func (app *iSteamApps) UpToDateCheck(appid uint, version string) (bool, upToDate
 	return res.Response.Success, res.Response.upToDateInfo, err
 }
 
-func New(c steam.Client) *iSteamApps {
+func New(c steam.Client) ISteamApps {
 	return &iSteamApps{c: c}
 }

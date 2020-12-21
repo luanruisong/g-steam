@@ -11,6 +11,13 @@ const (
 )
 
 type (
+	IPlayerService interface {
+		GetRecentlyPlayedGames(steamid string, count uint) (uint, []playedGame, error)
+		GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []playedGame, error)
+		GetSteamLevel(steamid string) (uint, error)
+		GetBadges(steamid string) (badge, error)
+		GetCommunityBadgeProgress(steamid string, badgeid uint) ([]Quest, error)
+	}
 	iPlayerService struct {
 		c steam.Client
 	}
@@ -129,7 +136,7 @@ func (app *iPlayerService) GetCommunityBadgeProgress(steamid string, badgeid uin
 	return res.Response.Quests, err
 }
 
-func New(c steam.Client) *iPlayerService {
+func New(c steam.Client) IPlayerService {
 	return &iPlayerService{c: c}
 }
 

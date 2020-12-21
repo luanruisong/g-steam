@@ -9,6 +9,9 @@ const (
 )
 
 type (
+	ISteamNews interface {
+		GetNewsForApp(appid, enddate, count uint, feeds string) (uint, []newsItemInfo, error)
+	}
 	iSteamNews struct {
 		c steam.Client
 	}
@@ -51,6 +54,6 @@ func (app *iSteamNews) GetNewsForApp(appid, enddate, count uint, feeds string) (
 	return res.Count, res.Newsitems, err
 }
 
-func New(c steam.Client) *iSteamNews {
+func New(c steam.Client) ISteamNews {
 	return &iSteamNews{c: c}
 }

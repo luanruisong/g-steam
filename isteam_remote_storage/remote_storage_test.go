@@ -7,7 +7,7 @@ import (
 	steam "github.com/luanruisong/g-steam"
 )
 
-func getTestApps() *iSteamRemoteStorage {
+func getTestApps() ISteamRemoteStorage {
 	client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
 	return New(client)
 }
@@ -29,6 +29,6 @@ func TestGetPublishedFileDetails(t *testing.T) {
 func TestGetUGCFileDetails(t *testing.T) {
 	app := getTestApps()
 
-	fmt.Println(app.GetUGCFileDetails(440, 1, 0))
+	fmt.Println(app.GetUGCFileDetails(440, "1", "0"))
 
 }

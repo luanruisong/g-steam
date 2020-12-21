@@ -11,6 +11,11 @@ const (
 )
 
 type (
+	ISteamRemoteStorage interface {
+		GetCollectionDetails(collectioncount uint32, publishedfileids []uint64) (string, error)
+		GetPublishedFileDetails(itemcount uint32, publishedfileids []uint64) (string, error)
+		GetUGCFileDetails(appid uint32, ugcid, steamid string) (uint, []ugcFile, error)
+	}
 	iSteamRemoteStorage struct {
 		c steam.Client
 	}
@@ -57,6 +62,6 @@ func (app *iSteamRemoteStorage) GetUGCFileDetails(appid uint32, ugcid, steamid s
 	return res.Status.Code, res.Data, err
 }
 
-func New(c steam.Client) *iSteamRemoteStorage {
+func New(c steam.Client) ISteamRemoteStorage {
 	return &iSteamRemoteStorage{c: c}
 }

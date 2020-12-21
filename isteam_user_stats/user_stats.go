@@ -11,6 +11,14 @@ const (
 )
 
 type (
+	ISteamUserStats interface {
+		GetGlobalAchievementPercentagesForApp(gameId uint) ([]achievementInfo, error)
+		GetGlobalStatsForGame(appId uint, names []string, startDate, endDate int64) (uint, map[string]globalState, error)
+		GetNumberOfCurrentPlayers(appId uint) (uint, uint, error)
+		GetPlayerAchievements(appId uint, steamid, l string) (playerStats, error)
+		GetSchemaForGame(appId uint, l string) (gameSchema, error)
+		GetUserStatsForGame(appId uint, steamid string) (singlePlayerStats, error)
+	}
 	iSteamUserStats struct {
 		c steam.Client
 	}
@@ -161,6 +169,6 @@ func (app *iSteamUserStats) GetUserStatsForGame(appId uint, steamid string) (sin
 	return res.PlayerStats, err
 }
 
-func New(c steam.Client) *iSteamUserStats {
+func New(c steam.Client) ISteamUserStats {
 	return &iSteamUserStats{c: c}
 }

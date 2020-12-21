@@ -9,6 +9,10 @@ const (
 )
 
 type (
+	ISteamWebapiUtil interface {
+		GetServerInfo() (serverTime, error)
+		GetSupportedAPIList() (ApiList, error)
+	}
 	iSteamWebapiUtil struct {
 		c steam.Client
 	}
@@ -54,6 +58,6 @@ func (app *iSteamWebapiUtil) GetSupportedAPIList() (ApiList, error) {
 	return res.ApiList, err
 }
 
-func New(c steam.Client) *iSteamWebapiUtil {
+func New(c steam.Client) ISteamWebapiUtil {
 	return &iSteamWebapiUtil{c: c}
 }
