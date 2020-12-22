@@ -5,7 +5,7 @@ steam web api golang realize
 ![](https://img.shields.io/badge/macOS-Development-d0d1d4)
 ![](https://img.shields.io/badge/golang-1.15-blue)
 [![](https://img.shields.io/badge/godoc-reference-3C57C4)](https://pkg.go.dev/github.com/luanruisong/g-steam)
-![](https://img.shields.io/badge/version-0.1-r)
+![](https://img.shields.io/badge/version-1.0.1-r)
 
 ## :rocket:Installation
 
