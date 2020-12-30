@@ -3,10 +3,8 @@ package isteam_user
 const (
 	//社区可见状态
 	CommunityVisibilityState = iota
-	CommunityVisibilityStatePrivate
-	CommunityVisibilityStateFriendOnly
-	CommunityVisibilityStateFriendsOfFriends
-	CommunityVisibilityStateUsersOnly
+	CommunityVisibilityStatePrivateOrFriendOnly
+	CommunityVisibilityStateOther
 	CommunityVisibilityStatePublic
 )
 

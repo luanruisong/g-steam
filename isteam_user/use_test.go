@@ -9,7 +9,7 @@ import (
 )
 
 func getTestApps() ISteamUser {
-	client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
+	client := steam.NewClient("24BA3E91FBD8C1C9678907A552C0AD37")
 	return New(client)
 }
 
