@@ -7,7 +7,7 @@ import (
 )
 
 func getTestApps() IPlayerService {
-	client := steam.NewClient("3C6A47B5B1E591DB30DA99B2E043571B")
+	client := steam.NewClient("24BA3E91FBD8C1C9678907A552C0AD37")
 	return New(client)
 }
 
@@ -23,11 +23,22 @@ func TestGetRecentlyPlayedGames(t *testing.T) {
 
 func TestGetOwnedGames(t *testing.T) {
 	app := getTestApps()
-	count, res, err := app.GetOwnedGames("76561198421538055", true, false, nil)
+	count, res, err := app.GetOwnedGames("76561199110641233", true, false, nil)
 	if err != nil {
 		t.Error(err.Error())
 	} else {
 		t.Log(count, res)
+	}
+}
+
+func TestGetOwnedGamesExtend(t *testing.T) {
+	app := getTestApps()
+	res, err := app.GetOwnedGamesExtend("76561198421538055", true, false, nil)
+	//res, err := app.GetOwnedGamesExtend("76561199110641233", true, false, nil)
+	if err != nil {
+		t.Error(err.Error())
+	} else {
+		t.Log("Visible", res.Visible, "count", res.GameCount, "games", res.Games)
 	}
 }
 

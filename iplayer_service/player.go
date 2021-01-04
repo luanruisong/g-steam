@@ -2,6 +2,7 @@ package iplayer_service
 
 import (
 	"fmt"
+	"strings"
 
 	steam "github.com/luanruisong/g-steam"
 )
@@ -14,6 +15,7 @@ type (
 	IPlayerService interface {
 		GetRecentlyPlayedGames(steamid string, count uint) (uint, []PlayedGame, error)
 		GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []PlayedGame, error)
+		GetOwnedGamesExtend(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (*PlayedGameResponse, error)
 		GetSteamLevel(steamid string) (uint, error)
 		GetBadges(steamid string) (Badge, error)
 		GetCommunityBadgeProgress(steamid string, badgeid uint) ([]Quest, error)
@@ -30,7 +32,11 @@ type (
 		ImgLogoUrl               string `json:"img_logo_url" xml:"img_logo_url" form:"img_logo_url"`
 		HasCommunityVisibleStats bool   `json:"has_community_visible_stats" xml:"has_community_visible_stats" form:"has_community_visible_stats"`
 	}
-
+	PlayedGameResponse struct {
+		GameCount uint         `json:"game_count" xml:"game_count" form:"game_count"`
+		Games     []PlayedGame `json:"games" xml:"games" form:"games"`
+		Visible   bool         `json:"-" xml:"-" form:"-"`
+	}
 	BadgesInfo struct {
 		Badgeid        uint `json:"badgeid"`
 		Level          uint `json:"level"`
@@ -73,26 +79,38 @@ func (app *iPlayerService) GetRecentlyPlayedGames(steamid string, count uint) (u
 	return res.Response.TotalCount, res.Response.Games, err
 }
 
-func (app *iPlayerService) GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []PlayedGame, error) {
+func (app *iPlayerService) getOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (*PlayedGameResponse, error) {
 	api := app.apiServer().
 		Method("GetOwnedGames").
 		Version("v1").
 		AddParam("steamid", steamid).
 		AddParam("include_appinfo", includeAppInfo).
 		AddParam("include_played_free_games", includePlayedFreeGames)
-
 	for i, v := range appidsFilter {
 		api = api.AddParam(fmt.Sprintf("appids_filter[%d]", i), v)
 	}
-
-	var res struct {
-		Response struct {
-			GameCount uint         `json:"game_count" xml:"game_count" form:"game_count"`
-			Games     []PlayedGame `json:"games" xml:"games" form:"games"`
-		} `json:"response" xml:"response" form:"response"`
+	var res = struct {
+		Response *PlayedGameResponse `json:"response" xml:"response" form:"response"`
+	}{
+		&PlayedGameResponse{},
 	}
-	_, err := api.Get(&res)
-	return res.Response.GameCount, res.Response.Games, err
+	r, err := api.Get(&res)
+	if err == nil {
+		res.Response.Visible = true
+		if res.Response.GameCount == 0 {
+			res.Response.Visible = strings.Index(r, "game_count") > 0
+		}
+	}
+	return res.Response, err
+}
+
+func (app *iPlayerService) GetOwnedGames(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (uint, []PlayedGame, error) {
+	rsp, err := app.getOwnedGames(steamid, includeAppInfo, includePlayedFreeGames, appidsFilter)
+	return rsp.GameCount, rsp.Games, err
+}
+
+func (app *iPlayerService) GetOwnedGamesExtend(steamid string, includeAppInfo, includePlayedFreeGames bool, appidsFilter []uint) (*PlayedGameResponse, error) {
+	return app.getOwnedGames(steamid, includeAppInfo, includePlayedFreeGames, appidsFilter)
 }
 
 func (app *iPlayerService) GetSteamLevel(steamid string) (uint, error) {
