@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	SteamBaseLoginUrl = "http://steamcommunity.com/openid/login"
+	SteamBaseLoginUrl = "https://steamcommunity.com/openid/login"
 	NsUrl             = "http://specs.openid.net/auth/2.0"
 	NsSelect          = NsUrl + "/identifier_select"
 )
