@@ -47,7 +47,7 @@ type (
 		AvatarMedium             string `json:"avatarmedium" xml:"avatarmedium" form:"avatarmedium"`
 		AvatarFull               string `json:"avatarfull" xml:"avatarfull" form:"avatarfull"`
 		PersonaState             uint8  `json:"personastate" xml:"personastate" form:"personastate"`
-		CommentPermission        string `json:"commentpermission" xml:"commentpermission" form:"commentpermission"`
+		CommentPermission        uint8  `json:"commentpermission" xml:"commentpermission" form:"commentpermission"`
 		RealName                 string `json:"realname" xml:"realname" form:"realname"`
 		PrimaryClanid            string `json:"primaryclanid" xml:"primaryclanid" form:"primaryclanid"`
 		TimeCreated              int64  `json:"timecreated" xml:"timecreated" form:"timecreated"`
