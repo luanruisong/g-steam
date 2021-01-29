@@ -95,6 +95,7 @@ func (app *iPlayerService) getOwnedGames(steamid string, includeAppInfo, include
 		&PlayedGameResponse{},
 	}
 	r, err := api.Get(&res)
+	fmt.Println(r)
 	if err == nil {
 		res.Response.Visible = true
 		if res.Response.GameCount == 0 {

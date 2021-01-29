@@ -20,7 +20,7 @@ type (
 	}
 )
 
-func NewClient(appKey string) *client {
+func NewClient(appKey string) Client {
 	return &client{
 		appKey: appKey,
 		req:    NewDefReq(),

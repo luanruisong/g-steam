@@ -33,12 +33,14 @@ func TestGetOwnedGames(t *testing.T) {
 
 func TestGetOwnedGamesExtend(t *testing.T) {
 	app := getTestApps()
-	res, err := app.GetOwnedGamesExtend("76561198421538055", true, false, nil)
-	//res, err := app.GetOwnedGamesExtend("76561199110641233", true, false, nil)
-	if err != nil {
-		t.Error(err.Error())
-	} else {
-		t.Log("Visible", res.Visible, "count", res.GameCount, "games", res.Games)
+	for i := 0; i < 2; i++ {
+		res, err := app.GetOwnedGamesExtend("76561198285938174", true, false, nil)
+		//res, err := app.GetOwnedGamesExtend("76561199110641233", true, false, nil)
+		if err != nil {
+			t.Error(err.Error())
+		} else {
+			t.Log("Visible", res.Visible, "count", res.GameCount, "games", res.Games)
+		}
 	}
 }
 
